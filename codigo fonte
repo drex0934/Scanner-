@@ -1,0 +1,28 @@
+Código-Fonte
+import socket
+
+target = "exemplo.com"
+ports = [80, 70, 10]
+
+print(f"Escaneando {target}...\n")
+
+for port in ports:
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.settimeout(1)
+
+        result = s.connect_ex((target, port))
+
+        if result == 0:
+            print(f"[+] Porta {port} ABERTA")
+        else:
+            print(f"[-] Porta {port} FECHADA")
+
+        s.close()
+
+    except socket.gaierror:
+        print("Erro: host não encontrado.")
+        break
+
+    except Exception as e:
+        print(f"Erro: {e}")
